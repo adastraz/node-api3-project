@@ -1,9 +1,17 @@
 const express = require('express');
 
+const Posts = require('./postDb.js')
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  // do your magic!
+  Posts.get(req.query)
+    .then(posts => {
+      res.status(200).json(posts)
+    })
+    .catch(err => {
+      console.log(err)
+      res.status(500).json({ message: 'Error retrieving the users' })
+    })
 });
 
 router.get('/:id', (req, res) => {

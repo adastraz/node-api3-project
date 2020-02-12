@@ -1,9 +1,10 @@
 const express = require('express');
 
+const Users = require('./userDb.js')
 const router = express.Router();
 
 router.post('/', (req, res) => {
-  // do your magic!
+  
 });
 
 router.post('/:id/posts', (req, res) => {
@@ -11,11 +12,25 @@ router.post('/:id/posts', (req, res) => {
 });
 
 router.get('/', (req, res) => {
-  // do your magic!
+  Users.get(req.query)
+    .then(users => {
+      res.status(200).json(users)
+    })
+    .catch(err => {
+      console.log(err)
+      res.status(500).json({ message: 'Error retrieving the users' })
+    })
 });
 
-router.get('/:id', (req, res) => {
-  // do your magic!
+router.get('/:id', validateUserID, (req, res) => {
+  Users.getById(req.params.id)
+    .then(user => {
+      res.status(200).json(user)
+    })
+    .catch(err => {
+      console.log(err)
+      res.status(500).json({ message: "Error retrieving the hub" })
+    })
 });
 
 router.get('/:id/posts', (req, res) => {
@@ -31,9 +46,12 @@ router.put('/:id', (req, res) => {
 });
 
 //custom middleware
-
-function validateUserId(req, res, next) {
-  // do your magic!
+function validateUserID (req, res, next) {
+  if(req.params.id) {
+    next()
+  }else{
+    res.status(404).json({ errorMessage: "User not found" })
+  }
 }
 
 function validateUser(req, res, next) {
