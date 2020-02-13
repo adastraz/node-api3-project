@@ -14,6 +14,7 @@ const logger = (req, res, next) => {
 
 server.use(express.json())
 server.use(helmet())
+server.use(cors())
 
 server.use('/api/users', logger, userRouter)
 server.use('/api/posts', postRouter)
