@@ -1,5 +1,6 @@
 const express = require('express')
 const helmet = require('helmet')
+require('dotenv').config()
 
 const userRouter = require('./users/userRouter.js')
 const postRouter = require('./posts/postRouter.js')
@@ -24,7 +25,7 @@ server.get('/', logger, (req, res) => {
     `)
 })
 
-port = 5000
+port = process.env.PORT || 5000
 server.listen(port, () => {
     console.log(`\n* ${Date(Date.now).toString()}Server listening on https://localhost:${port} *\n`)
 })
