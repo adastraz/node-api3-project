@@ -19,15 +19,11 @@ server.use('/api/users', logger, userRouter)
 server.use('/api/posts', postRouter)
 
 server.get('/', logger, (req, res) => {
-    res.send(`
-        <h1>Welcome to Tyler's messy API for Lambda</h1>
-        <h1> Lets see if we can get this to work</h1>
-    `)
+    const newThing = ({ thing: 'Cool', yep: 'yes'})
+    res.status(200).json(newThing)
 })
 
 port = process.env.PORT || 5000
 server.listen(port, () => {
     console.log(`\n* ${Date(Date.now).toString()}Server listening on https://localhost:${port} *\n`)
 })
-
-module.exports = server
