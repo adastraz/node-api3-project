@@ -26,7 +26,7 @@ server.get('/', logger, (req, res) => {
 
 port = 5000
 server.listen(port, () => {
-    console.log(`\n* Server listening on https://localhost:${port} *\n`)
+    console.log(`\n* ${Date(Date.now).toString()}Server listening on https://localhost:${port} *\n`)
 })
 
 module.exports = server
